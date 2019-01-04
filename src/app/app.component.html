@@ -4,17 +4,19 @@
       <input type="text" [(ngModel)]="filteredStatus">
       <br>
       <button class="btn btn-primary" (click)="onAddServer()">Add server</button>
+      <br>
+      <h3>App Status: {{ appStatus | async }}</h3>
       <hr>
       <ul class="list-group">
         <li
           class="list-group-item"
-          *ngFor="let server of servers | filter:filteredStatus:'status'"
+          *ngFor="let server of servers | sort: 'status'| filter:filteredStatus:'status'"
           [ngClass]="getStatusClasses(server)">
           <span
             class="badge">
             {{ server.status }}
           </span>
-          <strong>{{ server.name | shorten:5 }}</strong> | {{ server.instanceType | uppercase }} | {{ server.started | date: 'fullDate' }}
+          <strong>{{ server.name | shorten:5 }}</strong> | {{ server.instanceType | uppercase | reverse }} | {{ server.started | date: 'fullDate' }}
         </li>
       </ul>
     </div>
